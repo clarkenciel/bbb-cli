@@ -1,5 +1,7 @@
 extern crate bbb_core;
 extern crate clap;
+extern crate nom;
+extern crate rustyline;
 
 mod lib;
 mod interpreter;
@@ -49,7 +51,7 @@ fn main() {
         .get_matches();
 
     if args.is_present("repl") {
-        interpret().unwrap();
+        interpret();
     } else {
         args.subcommand_matches("write").and_then(|write_args| {
             let file = write_args.value_of("output_file").unwrap();

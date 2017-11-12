@@ -6,3 +6,5 @@ authors = ["clarkenciel <clarkenciel@gmail.com>"]
 [dependencies]
 bbb_core = { git = "https://github.com/clarkenciel/bbb-core", tag = "1.0.0" }
 clap = "2.27.1"
+nom = "^3.2"
+rustyline = "1.0.0"
