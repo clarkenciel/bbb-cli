@@ -60,7 +60,7 @@ fn main() {
                 .unwrap();
 
             write(file, dur, expr).ok()
-        }).unwrap();
+        });
     }
 }
 

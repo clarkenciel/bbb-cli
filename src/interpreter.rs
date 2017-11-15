@@ -25,7 +25,7 @@ enum Command {
     Stop,
     Quit,
     Help,
-    Play { duration: Option<f32>, expr: Expr },
+    Play { expr: Expr },
     Write {
         file_name: String,
         duration: f32,
@@ -73,7 +73,7 @@ fn perform(cmd: Command, env: &mut Environment) -> CommandResult {
                 Ok(Success::Quit),
             )
         }
-        Play { duration, expr } => env.play(expr).and(Ok(Success::Play)),
+        Play { expr } => env.play(expr).and(Ok(Success::Play)),
         Write {
             file_name,
             duration,
@@ -156,8 +156,8 @@ named!(help<Command>, value!(Help, tag!("help")));
 named!(play<Command>, do_parse!(play_command >> cmd: play_args >> (cmd)));
 named!(play_command<&[u8]>, recognize!(tag!("play")));
 named!(play_args<Command>, map!(
-    pair!(opt!(float), ws!(parse_expr)),
-    |(dur, exp)| Play { duration: dur, expr: exp }
+    ws!(parse_expr),
+    |exp| Play { expr: exp }
 ));
 
 named!(write<Command>, do_parse!(write_command >> cmd: write_args >> (cmd)));
